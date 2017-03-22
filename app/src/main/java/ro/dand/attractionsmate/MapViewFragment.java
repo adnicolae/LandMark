@@ -1,5 +1,6 @@
 package ro.dand.attractionsmate;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -7,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -30,11 +33,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+
 /**
  * Class to model the Map Fragment.
  */
 
-public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowClickListener {
+public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMyLocationButtonClickListener {
 
     MapView mMapView;
     private GoogleMap googleMap;
@@ -78,8 +83,8 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
                         new LatLng(44.389222, 26.118203)
                 ));
 
-//                enableMyLocation();
-
+//                mMap.setOnMyLocationButtonClickListener(this);
+                enableMyLocation();
 
                 Resources res = getResources();
                 String[] titles = res.getStringArray(R.array.Locations);
@@ -145,6 +150,30 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
         intent.putExtras(extras);
         startActivity(intent);
         //Toast.makeText(getContext(), marker.getSnippet(), Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Enables the My Location layer if the fine location permission has been granted.
+     */
+    private void enableMyLocation() {
+        if (ContextCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission to access the location is missing.
+            ActivityCompat.requestPermissions(this.getActivity(), new String[]
+                    {android.Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE );
+        } else if (googleMap != null) {
+            // Access to the location has been granted to the app.
+            googleMap.setMyLocationEnabled(true);
+        }
+    }
+
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(this.getActivity(), "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false;
     }
 
     @Override
