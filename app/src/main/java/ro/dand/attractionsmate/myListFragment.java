@@ -43,20 +43,15 @@ public class myListFragment extends android.support.v4.app.ListFragment implemen
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
-//        Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
-
         Intent intent = new Intent(this.getActivity(), ScrollingActivity.class);
         Marker myMarker = MapViewFragment.mMarkerPosition.get(position);
+
         Bundle extras = new Bundle();
         extras.putString("MARKER_TITLE", myMarker.getTitle());
         extras.putString("MARKER_DESCRIPTION", MapViewFragment.mMarkerInfo.get(myMarker).getDescription());
         extras.putInt("MARKER_PHOTO", MapViewFragment.mMarkerInfo.get(myMarker).getImageAddress());
-//        extras.putParcelable("MARKER_POSITION", marker.getPosition());
         extras.putDouble("MARKER_LATITUDE", myMarker.getPosition().latitude);
         extras.putDouble("MARKER_LONGITUDE", myMarker.getPosition().longitude);
-//        intent.putExtra(EXTRA_MESSAGE, marker.getSnippet());
-//        intent.putExtra(MARKER_TITLE, marker.getTitle());
-//        intent.pu
         intent.putExtras(extras);
         startActivity(intent);
     }

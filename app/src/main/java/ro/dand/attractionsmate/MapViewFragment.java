@@ -40,16 +40,10 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
     private GoogleMap googleMap;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
-    /**
-     * Flag indicating whether a requested permission has been denied after returning in
-     * {@link #onRequestPermissionsResult(int, String[], int[])}.
-     */
-    private boolean mPermissionDenied = false;
     protected LocationManager locationManager;
     public final static String EXTRA_MESSAGE = "";
     public final static String MARKER_TITLE = "";
-//    public final static HashMap<Marker, String> mMarkerMap = new HashMap<>();
-//    public final static HashMap<Marker, Integer> mMarkerDrawable = new HashMap<>();
+
     public final static HashMap<Integer, Marker> mMarkerPosition = new HashMap<>();
     public final static HashMap<Marker, DescriptionImagePair> mMarkerInfo = new HashMap<>();
 
