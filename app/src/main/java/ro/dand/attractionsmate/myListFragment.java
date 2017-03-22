@@ -1,7 +1,8 @@
 package ro.dand.attractionsmate;
 
-/**
- * Created by Andrew on 10/9/2016.
+/*
+ * Class to model the List fragment.
+ * Outputs a list of locations.
  */
 
 import android.annotation.SuppressLint;
@@ -25,10 +26,11 @@ import com.google.android.gms.maps.model.Marker;
 import java.util.List;
 
 public class myListFragment extends android.support.v4.app.ListFragment implements OnItemClickListener {
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.list_fragment, container, false);
-        return view;
+//        View view = inflater.inflate(R.layout.list_fragment, container, false);
+        return inflater.inflate(R.layout.list_fragment, container, false);
     }
 
     @Override
@@ -47,8 +49,8 @@ public class myListFragment extends android.support.v4.app.ListFragment implemen
         Marker myMarker = MapViewFragment.mMarkerPosition.get(position);
         Bundle extras = new Bundle();
         extras.putString("MARKER_TITLE", myMarker.getTitle());
-        extras.putString("MARKER_DESCRIPTION", MapViewFragment.mMarkerMap.get(myMarker));
-        extras.putInt("MARKER_PHOTO", MapViewFragment.mMarkerDrawable.get(myMarker));
+        extras.putString("MARKER_DESCRIPTION", MapViewFragment.mMarkerInfo.get(myMarker).getDescription());
+        extras.putInt("MARKER_PHOTO", MapViewFragment.mMarkerInfo.get(myMarker).getImageAddress());
 //        extras.putParcelable("MARKER_POSITION", marker.getPosition());
         extras.putDouble("MARKER_LATITUDE", myMarker.getPosition().latitude);
         extras.putDouble("MARKER_LONGITUDE", myMarker.getPosition().longitude);
