@@ -1,17 +1,13 @@
-package ro.dand.attractionsmate;
+package ro.dand.attractionsmate.Fragments;
 
 /*
  * Class to model the List fragment.
  * Outputs a list of locations.
  */
 
-import android.annotation.SuppressLint;
-import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +15,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.model.Marker;
 
-import java.util.ArrayList;
-import java.util.List;
+import ro.dand.attractionsmate.R;
+import ro.dand.attractionsmate.Activities.ScrollingActivity;
 
 public class myListFragment extends android.support.v4.app.ListFragment implements OnItemClickListener {
 

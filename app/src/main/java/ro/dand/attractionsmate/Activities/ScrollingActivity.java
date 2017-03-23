@@ -1,4 +1,4 @@
-package ro.dand.attractionsmate;
+package ro.dand.attractionsmate.Activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
+
+import ro.dand.attractionsmate.R;
 
 import static android.R.color.transparent;
 

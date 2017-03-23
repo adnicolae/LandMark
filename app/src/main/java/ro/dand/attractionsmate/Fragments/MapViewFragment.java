@@ -1,11 +1,7 @@
-package ro.dand.attractionsmate;
+package ro.dand.attractionsmate.Fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -17,14 +13,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -34,7 +28,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import ro.dand.attractionsmate.Models.DescriptionImagePair;
+import ro.dand.attractionsmate.R;
+import ro.dand.attractionsmate.Activities.ScrollingActivity;
 
 /**
  * Class to model the Map Fragment.

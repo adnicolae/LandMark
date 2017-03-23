@@ -1,4 +1,4 @@
-package ro.dand.attractionsmate;
+package ro.dand.attractionsmate.Models;
 
 /**
  * Class to model marker details as description-image pair.
