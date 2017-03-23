@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:label="Landmark pinpoint"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -40,7 +40,7 @@
 
         <!-- TODO: MapsActivity reduces the need for 2 scrolling activities for list/map fragments-->
         <activity
-            android:name=".MapsActivity"
+            android:name=".Activities.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".Activities.ScrollingActivity"
@@ -48,7 +48,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ro.dand.attractionsmate.MapsActivity" />
+                android:value="ro.dand.attractionsmate.Activities.MapsActivity" />
         </activity>
     </application>
 

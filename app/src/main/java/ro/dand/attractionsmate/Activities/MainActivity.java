@@ -1,4 +1,4 @@
-package ro.dand.attractionsmate;
+package ro.dand.attractionsmate.Activities;
 
 
 import android.graphics.Color;
@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import ro.dand.attractionsmate.Fragments.MapViewFragment;
 import ro.dand.attractionsmate.Fragments.myListFragment;
+import ro.dand.attractionsmate.R;
 
 /**
  * Class to model the fragments adapter.
