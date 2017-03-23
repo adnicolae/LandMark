@@ -18,10 +18,11 @@ import android.widget.ArrayAdapter;
 
 import com.google.android.gms.maps.model.Marker;
 
+import ro.dand.attractionsmate.Models.LocationsAdapter;
 import ro.dand.attractionsmate.R;
 import ro.dand.attractionsmate.Activities.ScrollingActivity;
 
-public class myListFragment extends android.support.v4.app.ListFragment implements OnItemClickListener {
+public class ListViewFragment extends android.support.v4.app.ListFragment implements OnItemClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,8 +35,9 @@ public class myListFragment extends android.support.v4.app.ListFragment implemen
         super.onActivityCreated(savedInstanceState);
 //        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.Locations, android.R.layout.simple_list_item_1);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, MapViewFragment.mLocationsTitles);
-        setListAdapter(adapter);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
+//                android.R.layout.simple_list_item_2, MapViewFragment.mLocationsTitles);
+        setListAdapter(new LocationsAdapter(getActivity(), android.R.layout.simple_list_item_2, MapViewFragment.mTitleDescriptionPair));
         getListView().setOnItemClickListener(this);
     }
 

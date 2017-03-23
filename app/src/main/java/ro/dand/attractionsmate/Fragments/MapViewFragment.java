@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import ro.dand.attractionsmate.Models.DescriptionImagePair;
+import ro.dand.attractionsmate.Models.TitleDescriptionPair;
 import ro.dand.attractionsmate.R;
 import ro.dand.attractionsmate.Activities.ScrollingActivity;
 
@@ -49,6 +50,14 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
     public final static HashMap<Integer, Marker> mMarkerPosition = new HashMap<>();
     public final static HashMap<Marker, DescriptionImagePair> mMarkerInfo = new HashMap<>();
     public final static List<String> mLocationsTitles = new ArrayList<>(Arrays.asList("Casa Poporului", "Ateneul Roman", "Biblioteca Nationala", "Berceni"));
+    public final static ArrayList<TitleDescriptionPair> mTitleDescriptionPair =
+            new ArrayList<>(Arrays.asList(
+                    new TitleDescriptionPair("Casa Poporului", "Place of the Parliament"),
+                    new TitleDescriptionPair("Ateneul Roman", "Concert Hall"),
+                    new TitleDescriptionPair("Biblioteca Nationala", "National Library"),
+                    new TitleDescriptionPair("Berceni", "Neighbourhood"))
+            );
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -102,9 +111,9 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
                 for (LatLng coordinate : allPoints) {
                     Marker marker = googleMap.addMarker(new MarkerOptions()
                             .position(coordinate)
-                            .title(mLocationsTitles.get(i))
+                            .title(mTitleDescriptionPair.get(i).getLocationTitle())
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                            .snippet(snippets[i])
+                            .snippet(mTitleDescriptionPair.get(i).getLocationShortDescription())
 
                     );
                     googleMap.setOnInfoWindowClickListener(MapViewFragment.this);

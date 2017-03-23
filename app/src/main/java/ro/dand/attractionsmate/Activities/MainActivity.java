@@ -2,7 +2,9 @@ package ro.dand.attractionsmate.Activities;
 
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -20,7 +22,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import ro.dand.attractionsmate.Fragments.MapViewFragment;
-import ro.dand.attractionsmate.Fragments.myListFragment;
+import ro.dand.attractionsmate.Fragments.ListViewFragment;
 import ro.dand.attractionsmate.R;
 
 /**
@@ -52,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         int black = Color.parseColor("#000000");
         toolbar.setTitleTextColor(black);
+
+        //Show menu icon
+//        final ActionBar ab = getSupportActionBar();
+//        ab.setHomeAsUpIndicator(R.drawable.black_menu);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -146,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below)
             switch (position) {
                 case 0:
-                    return new myListFragment();
+                    return new ListViewFragment();
                 case 1:
                     return new MapViewFragment();
                 case 2:
