@@ -51,6 +51,7 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
 
     public final static HashMap<Integer, Marker> mMarkerPosition = new HashMap<>();
     public final static HashMap<Marker, DescriptionImagePair> mMarkerInfo = new HashMap<>();
+    public final static ArrayList<String> mLocationsTitles = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,9 +87,13 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
 //                mMap.setOnMyLocationButtonClickListener(this);
                 enableMyLocation();
 
-                Resources res = getResources();
-                String[] titles = res.getStringArray(R.array.Locations);
+//                Resources res = getResources();
+//                String[] titles = res.getStringArray(R.array.Locations);
 //                String[] titles = {"Casa Poporului", "Ateneul Roman", "Biblioteca Nationala", "Berceni"};
+                mLocationsTitles.add("Casa Poporului");
+                mLocationsTitles.add("Ateneul Roman");
+                mLocationsTitles.add("Biblioteca Nationala");
+                mLocationsTitles.add("Berceni");
                 String[] snippets = {"Place of the Parliament", "Concert Hall", "National Library", "Neighbourhood"};
                 String[] descriptions = {
                         "The Palace of the Parliament (Romanian: Palatul Parlamentului) is the seat of the Parliament of Romania. Located on Dealul Arsenalului in central Bucharest (Sector 5), it is the second largest administrative building in the world,[1] after The Pentagon in the United States.",
@@ -102,7 +107,7 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
                 for (LatLng coordinate : allPoints) {
                     Marker marker = googleMap.addMarker(new MarkerOptions()
                             .position(coordinate)
-                            .title(titles[i])
+                            .title(mLocationsTitles.get(i))
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                             .snippet(snippets[i])
 
