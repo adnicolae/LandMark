@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 
@@ -51,7 +52,7 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
 
     public final static HashMap<Integer, Marker> mMarkerPosition = new HashMap<>();
     public final static HashMap<Marker, DescriptionImagePair> mMarkerInfo = new HashMap<>();
-    public final static ArrayList<String> mLocationsTitles = new ArrayList<>();
+    public final static List<String> mLocationsTitles = new ArrayList<>(Arrays.asList("Casa Poporului", "Ateneul Roman", "Biblioteca Nationala", "Berceni"));
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,10 +91,7 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
 //                Resources res = getResources();
 //                String[] titles = res.getStringArray(R.array.Locations);
 //                String[] titles = {"Casa Poporului", "Ateneul Roman", "Biblioteca Nationala", "Berceni"};
-                mLocationsTitles.add("Casa Poporului");
-                mLocationsTitles.add("Ateneul Roman");
-                mLocationsTitles.add("Biblioteca Nationala");
-                mLocationsTitles.add("Berceni");
+
                 String[] snippets = {"Place of the Parliament", "Concert Hall", "National Library", "Neighbourhood"};
                 String[] descriptions = {
                         "The Palace of the Parliament (Romanian: Palatul Parlamentului) is the seat of the Parliament of Romania. Located on Dealul Arsenalului in central Bucharest (Sector 5), it is the second largest administrative building in the world,[1] after The Pentagon in the United States.",
@@ -101,7 +99,8 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
                         "The National Library of Romania is the national library of Romania. It is intended to be the ... After 1859 Union, the library has reach the national statute",
                         "Berceni is a southern neighbourhood in Bucharest."
                 };
-                int[] myImageList = new int[]{R.drawable.casapop, R.drawable.ateneul, R.drawable.biblioteca, R.drawable.berceni};
+                // TODO: replace biblioteca resource
+                int[] myImageList = new int[]{R.drawable.casapop, R.drawable.ateneul, R.drawable.ateneul, R.drawable.berceni};
 //                ArrayList<Integer> myImages = new ArrayList<>(Arrays.asList(R.drawable.casapop, R.drawable.casa_poporuluii));
                 int i = 0;
                 for (LatLng coordinate : allPoints) {

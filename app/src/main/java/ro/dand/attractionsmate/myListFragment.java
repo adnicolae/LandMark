@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class myListFragment extends android.support.v4.app.ListFragment implements OnItemClickListener {
-    private ArrayList<String> locations = new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        View view = inflater.inflate(R.layout.list_fragment, container, false);
@@ -38,12 +38,9 @@ public class myListFragment extends android.support.v4.app.ListFragment implemen
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 //        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.Locations, android.R.layout.simple_list_item_1);
-        locations.add("Casa Poporului");
-        locations.add("Ateneul Roman");
-        locations.add("Biblioteca Nationala");
-        locations.add("Berceni");
-        ArrayAdapter<String> adap = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, locations);
-        setListAdapter(adap);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, MapViewFragment.mLocationsTitles);
+        setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
     }
 
