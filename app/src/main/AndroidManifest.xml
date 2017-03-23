@@ -38,6 +38,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <!-- TODO: MapsActivity reduces the need for 2 scrolling activities for list/map fragments-->
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
