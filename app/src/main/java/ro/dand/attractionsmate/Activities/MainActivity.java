@@ -55,12 +55,6 @@ public class MainActivity extends AppCompatActivity {
         int black = Color.parseColor("#000000");
         toolbar.setTitleTextColor(black);
 
-        //Show menu icon
-//        final ActionBar ab = getSupportActionBar();
-//        ab.setHomeAsUpIndicator(R.drawable.black_menu);
-
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -69,14 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-
-////        Push MapView Fragment
-//        Fragment fragment = Fragment.instantiate(this, MapViewFragment.class.getName());
-//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//        ft.replace(R.id.container, fragment);
-//        ft.commit();
-
     }
 
 

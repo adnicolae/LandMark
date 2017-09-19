@@ -26,17 +26,12 @@ public class ListViewFragment extends android.support.v4.app.ListFragment implem
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.list_fragment, container, false);
         return inflater.inflate(R.layout.list_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.Locations, android.R.layout.simple_list_item_1);
-
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
-//                android.R.layout.simple_list_item_2, MapViewFragment.mLocationsTitles);
         setListAdapter(new LocationsAdapter(getActivity(), android.R.layout.simple_list_item_2, MapViewFragment.mTitleDescriptionPair));
         getListView().setOnItemClickListener(this);
     }

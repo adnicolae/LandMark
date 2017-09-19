@@ -49,7 +49,6 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
 
     public final static HashMap<Integer, Marker> mMarkerPosition = new HashMap<>();
     public final static HashMap<Marker, DescriptionImagePair> mMarkerInfo = new HashMap<>();
-//    public final static List<String> mLocationsTitles = new ArrayList<>(Arrays.asList("Casa Poporului", "Ateneul Roman", "Biblioteca Nationala", "Berceni"));
     public final static ArrayList<TitleDescriptionPair> mTitleDescriptionPair =
             new ArrayList<>(Arrays.asList(
                     new TitleDescriptionPair("Palace of the Parliament", "Palace and architecture"),
@@ -108,7 +107,6 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
                         new LatLng(44.401017, 26.133877)
                 ));
 
-//                mMap.setOnMyLocationButtonClickListener(this);
                 enableMyLocation();
 
                 String[] descriptions = {
@@ -151,7 +149,7 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
                         R.drawable.biblioteca,
 //                        berceni
                         R.drawable.vacaresti};
-//                ArrayList<Integer> myImages = new ArrayList<>(Arrays.asList(R.drawable.casapop, R.drawable.casa_poporuluii));
+
                 int i = 0;
                 for (LatLng coordinate : allPoints) {
                     Marker marker = googleMap.addMarker(new MarkerOptions()
@@ -162,8 +160,6 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
 
                     );
                     googleMap.setOnInfoWindowClickListener(MapViewFragment.this);
-//                    mMarkerMap.put(marker, descriptions[i]);
-//                    mMarkerDrawable.put(marker, myImageList[i]);
                     mMarkerInfo.put(marker, new DescriptionImagePair(descriptions[i], myImageList[i]));
                     mMarkerPosition.put(i, marker);
                     i++;
@@ -173,15 +169,6 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
                 // Add a marker in Bucharest and move the camera
                 LatLng bucharest = new LatLng(44.426767, 26.102538);
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bucharest, 12));
-//                googleMap = mMap;
-//
-//                // For dropping a marker at a point on the Map
-//                LatLng sydney = new LatLng(-34, 151);
-//                googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
-//
-//                // For zooming automatically to the location of the marker
-//                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
-//                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
 
@@ -195,15 +182,10 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
         extras.putString("MARKER_TITLE", marker.getTitle());
         extras.putString("MARKER_DESCRIPTION", mMarkerInfo.get(marker).getDescription());
         extras.putInt("MARKER_PHOTO", mMarkerInfo.get(marker).getImageAddress());
-//        extras.putParcelable("MARKER_POSITION", marker.getPosition());
         extras.putDouble("MARKER_LATITUDE", marker.getPosition().latitude);
         extras.putDouble("MARKER_LONGITUDE", marker.getPosition().longitude);
-//        intent.putExtra(EXTRA_MESSAGE, marker.getSnippet());
-//        intent.putExtra(MARKER_TITLE, marker.getTitle());
-//        intent.pu
         intent.putExtras(extras);
         startActivity(intent);
-        //Toast.makeText(getContext(), marker.getSnippet(), Toast.LENGTH_SHORT).show();
     }
 
     /**
