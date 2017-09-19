@@ -8,8 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.TwoLineListItem;
 
+import com.google.android.gms.maps.model.Marker;
+
 import java.util.ArrayList;
 
+import ro.dand.attractionsmate.Data.MarkerInfoRepository;
 import ro.dand.attractionsmate.R;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
@@ -18,8 +21,8 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
  * Created by Andrew on 3/23/2017.
  */
 
-public class LocationsAdapter extends ArrayAdapter<TitleDescriptionPair> {
-    private ArrayList<TitleDescriptionPair> items;
+public class LocationsAdapter extends ArrayAdapter<MarkerInfo> {
+    private ArrayList<MarkerInfo> items;
     private LocationViewHolder locationViewHolder;
 
     private class LocationViewHolder{
@@ -27,7 +30,7 @@ public class LocationsAdapter extends ArrayAdapter<TitleDescriptionPair> {
         TextView description;
     }
 
-    public LocationsAdapter(Context context, int id, ArrayList<TitleDescriptionPair> items){
+    public LocationsAdapter(Context context, int id, ArrayList<MarkerInfo> items){
         super(context, id, items);
         this.items = items;
     }
@@ -47,10 +50,10 @@ public class LocationsAdapter extends ArrayAdapter<TitleDescriptionPair> {
         }
 
 
-        TitleDescriptionPair titleDescriptionPair = items.get(pos);
-        if (titleDescriptionPair != null) {
-            locationViewHolder.description.setText(titleDescriptionPair.getLocationShortDescription());
-            locationViewHolder.title.setText(titleDescriptionPair.getLocationTitle());
+        MarkerInfo markerInfo = items.get(pos);
+        if (markerInfo != null) {
+            locationViewHolder.description.setText(markerInfo.getMarkerShortDescription());
+            locationViewHolder.title.setText(markerInfo.getMarkerTitle());
         }
 
         return v;

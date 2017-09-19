@@ -18,11 +18,18 @@ import android.widget.ArrayAdapter;
 
 import com.google.android.gms.maps.model.Marker;
 
+import java.util.ArrayList;
+
+import ro.dand.attractionsmate.Data.MarkerInfoRepository;
 import ro.dand.attractionsmate.Models.LocationsAdapter;
+import ro.dand.attractionsmate.Models.MarkerInfo;
 import ro.dand.attractionsmate.R;
 import ro.dand.attractionsmate.Activities.ScrollingActivity;
 
 public class ListViewFragment extends android.support.v4.app.ListFragment implements OnItemClickListener {
+
+    MarkerInfoRepository markerInfoRepository = new MarkerInfoRepository();
+    ArrayList<MarkerInfo> markerInfo = markerInfoRepository.getAllMarkerInfo();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,21 +39,21 @@ public class ListViewFragment extends android.support.v4.app.ListFragment implem
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setListAdapter(new LocationsAdapter(getActivity(), android.R.layout.simple_list_item_2, MapViewFragment.mTitleDescriptionPair));
+
+        setListAdapter(new LocationsAdapter(getActivity(), android.R.layout.simple_list_item_2, markerInfo));
         getListView().setOnItemClickListener(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
         Intent intent = new Intent(this.getActivity(), ScrollingActivity.class);
-        Marker myMarker = MapViewFragment.mMarkerPosition.get(position);
 
         Bundle extras = new Bundle();
-        extras.putString("MARKER_TITLE", myMarker.getTitle());
-        extras.putString("MARKER_DESCRIPTION", MapViewFragment.mMarkerInfo.get(myMarker).getDescription());
-        extras.putInt("MARKER_PHOTO", MapViewFragment.mMarkerInfo.get(myMarker).getImageAddress());
-        extras.putDouble("MARKER_LATITUDE", myMarker.getPosition().latitude);
-        extras.putDouble("MARKER_LONGITUDE", myMarker.getPosition().longitude);
+        extras.putString("MARKER_TITLE", markerInfo.get(position).getMarkerTitle());
+        extras.putString("MARKER_DESCRIPTION", markerInfo.get(position).getMarkerLongDescription());
+        extras.putInt("MARKER_PHOTO", markerInfo.get(position).getMarkerImageAddress());
+        extras.putDouble("MARKER_LATITUDE", markerInfo.get(position).getCoordinates().latitude);
+        extras.putDouble("MARKER_LONGITUDE", markerInfo.get(position).getCoordinates().longitude);
         intent.putExtras(extras);
         startActivity(intent);
     }
