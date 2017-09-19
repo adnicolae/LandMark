@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import ro.dand.attractionsmate.Data.MarkerInfoRepository;
 import ro.dand.attractionsmate.Models.DescriptionImagePair;
 import ro.dand.attractionsmate.Models.TitleDescriptionPair;
 import ro.dand.attractionsmate.R;
@@ -49,19 +50,7 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
 
     public final static HashMap<Integer, Marker> mMarkerPosition = new HashMap<>();
     public final static HashMap<Marker, DescriptionImagePair> mMarkerInfo = new HashMap<>();
-    public final static ArrayList<TitleDescriptionPair> mTitleDescriptionPair =
-            new ArrayList<>(Arrays.asList(
-                    new TitleDescriptionPair("Palace of the Parliament", "Palace and architecture"),
-                    new TitleDescriptionPair("Romanian Athenaeum", "Concert hall, culture and theatre"),
-                    new TitleDescriptionPair("Stavropoleos Monastery", "Church and history"),
-                    new TitleDescriptionPair("Arch of Triumph", "History and architecture"),
-                    new TitleDescriptionPair("Herăstrău Park", "Park"),
-                    new TitleDescriptionPair("Old Princely Court", "Museum"),
-                    new TitleDescriptionPair("Tineretului Park", "Park"),
-                    new TitleDescriptionPair("National Museum of Romanian History", "Museum, history"),
-                    new TitleDescriptionPair("Biblioteca Nationala", "National Library"),
-                    new TitleDescriptionPair("Văcărești Nature Park", "Park"))
-            );
+    public MarkerInfoRepository markerInfoRepository = null;
 
 
     @Override
@@ -72,6 +61,9 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
         mMapView.onCreate(savedInstanceState);
 
         mMapView.onResume(); // needed to get the map to display immediately
+
+        markerInfoRepository = new MarkerInfoRepository();
+        final ArrayList<TitleDescriptionPair> markerInfo = markerInfoRepository.getAllPairs();
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -154,12 +146,13 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
                 for (LatLng coordinate : allPoints) {
                     Marker marker = googleMap.addMarker(new MarkerOptions()
                             .position(coordinate)
-                            .title(mTitleDescriptionPair.get(i).getLocationTitle())
+                            .title(markerInfo.get(i).getLocationTitle())
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                            .snippet(mTitleDescriptionPair.get(i).getLocationShortDescription())
+                            .snippet(markerInfo.get(i).getLocationShortDescription())
 
                     );
                     googleMap.setOnInfoWindowClickListener(MapViewFragment.this);
+
                     mMarkerInfo.put(marker, new DescriptionImagePair(descriptions[i], myImageList[i]));
                     mMarkerPosition.put(i, marker);
                     i++;
