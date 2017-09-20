@@ -1,10 +1,12 @@
 package ro.dand.attractionsmate.Database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import ro.dand.attractionsmate.Data.MarkerInfoRepository;
+import ro.dand.attractionsmate.Models.MarkerInfo;
 
 /**
  * Created by Andrei Nicolae on 9/20/2017.
@@ -37,11 +39,34 @@ public class LandmarkDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
 
+        // Insert dummy data from repository
+        for (MarkerInfo markerInfo : _markerInfoRepository.getAllMarkerInfo()) {
+            db.execSQL(
+                    "INSERT INTO " + LandmarkDbContract.MarkerInfoEntry.TABLE_NAME +
+                    " VALUES (null, \"" + markerInfo.getMarkerTitle() +"\", \"" +
+                    markerInfo.getMarkerShortDescription() + "\"," +
+                    markerInfo.getCoordinates().latitude + ", " +
+                    markerInfo.getCoordinates().longitude + ", \"" +
+                    markerInfo.getMarkerLongDescription() + "\", " +
+                    markerInfo.getMarkerImageAddress() + ")"
+
+            );
+        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int il) {
         db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
+    }
+
+    /**
+     * Facilitates entire quote data retrieval.
+     * @return A cursor containing the results statements.
+     */
+    public Cursor getAllData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + LandmarkDbContract.MarkerInfoEntry.TABLE_NAME, null);
+        return cursor;
     }
 }
