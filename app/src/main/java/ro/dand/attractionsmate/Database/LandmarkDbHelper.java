@@ -26,7 +26,7 @@ public class LandmarkDbHelper extends SQLiteOpenHelper {
             LandmarkDbContract.MarkerInfoEntry.COL_LATITUDE + " DOUBLE," +
             LandmarkDbContract.MarkerInfoEntry.COL_LONGITUDE + " DOUBLE," +
             LandmarkDbContract.MarkerInfoEntry.COL_LONG_DESCRIPTION + " TEXT," +
-            LandmarkDbContract.MarkerInfoEntry.COL_IMAGE_ADDRESS + " INTEGER)";
+            LandmarkDbContract.MarkerInfoEntry.COL_IMAGE_ADDRESS + " VARCHAR2(30))";
 
     private static final String SQL_DELETE_ENTRIES =
             "DELETE TABLE IF EXISTS " + LandmarkDbContract.MarkerInfoEntry.TABLE_NAME;
@@ -39,19 +39,22 @@ public class LandmarkDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
-
-        // Insert dummy data from repository
-        for (MarkerInfo markerInfo : _markerInfoRepository.getAllMarkerInfo()) {
-            db.execSQL(
-                    "INSERT INTO " + LandmarkDbContract.MarkerInfoEntry.TABLE_NAME +
-                    " VALUES (null, \"" + markerInfo.getMarkerTitle() +"\", \"" +
-                    markerInfo.getMarkerShortDescription() + "\"," +
-                    markerInfo.getCoordinates().latitude + ", " +
-                    markerInfo.getCoordinates().longitude + ", \"" +
-                    markerInfo.getMarkerLongDescription() + "\", " +
-                    markerInfo.getMarkerImageAddress() + ")"
-            );
-        }
+        db.execSQL(
+                "INSERT INTO " +
+                LandmarkDbContract.MarkerInfoEntry.TABLE_NAME +
+                " VALUES(null, \" TESTTITLE \", \"TESTSHORTDESCRIPTION\", 54.54, 44.44, \"LONGDESCRIPTION\", \"R.drawable.vacaresti\")");
+//        // Insert dummy data from repository
+//        for (MarkerInfo markerInfo : _markerInfoRepository.getAllMarkerInfo()) {
+//            db.execSQL(
+//                    "INSERT INTO " + LandmarkDbContract.MarkerInfoEntry.TABLE_NAME +
+//                    " VALUES (null, \"" + markerInfo.getMarkerTitle() +"\", \"" +
+//                    markerInfo.getMarkerShortDescription() + "\"," +
+//                    markerInfo.getCoordinates().latitude + ", " +
+//                    markerInfo.getCoordinates().longitude + ", \"" +
+//                    markerInfo.getMarkerLongDescription() + "\", " +
+//                    markerInfo.getMarkerImageAddress() + ")"
+//            );
+//        }
     }
 
     @Override
@@ -71,7 +74,7 @@ public class LandmarkDbHelper extends SQLiteOpenHelper {
      * @return true if a new database row has been created, false otherwise.
      */
     public boolean insertData(String markerTitle, String shortDescription, double latitude,
-                              double longitude, String longDescription, int imageAddress) {
+                              double longitude, String longDescription, String imageAddress) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
