@@ -1,5 +1,6 @@
 package ro.dand.attractionsmate.Database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -49,7 +50,6 @@ public class LandmarkDbHelper extends SQLiteOpenHelper {
                     markerInfo.getCoordinates().longitude + ", \"" +
                     markerInfo.getMarkerLongDescription() + "\", " +
                     markerInfo.getMarkerImageAddress() + ")"
-
             );
         }
     }
@@ -61,7 +61,37 @@ public class LandmarkDbHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Facilitates entire quote data retrieval.
+     * Facilitates insertion of landmarks by the user.
+     * @param markerTitle The name of the location.
+     * @param shortDescription A short description of the location.
+     * @param latitude  Location's latitude.
+     * @param longitude Location's longitude.
+     * @param longDescription A long description of the location.
+     * @param imageAddress  The image address, default: no_preview.
+     * @return true if a new database row has been created, false otherwise.
+     */
+    public boolean insertData(String markerTitle, String shortDescription, double latitude,
+                              double longitude, String longDescription, int imageAddress) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(LandmarkDbContract.MarkerInfoEntry.COL_TITLE, markerTitle);
+        values.put(LandmarkDbContract.MarkerInfoEntry.COL_SHORT_DESCRIPTION, shortDescription);
+        values.put(LandmarkDbContract.MarkerInfoEntry.COL_LATITUDE, latitude);
+        values.put(LandmarkDbContract.MarkerInfoEntry.COL_LONGITUDE, longitude);
+        values.put(LandmarkDbContract.MarkerInfoEntry.COL_LONG_DESCRIPTION, longDescription);
+        values.put(LandmarkDbContract.MarkerInfoEntry.COL_IMAGE_ADDRESS, imageAddress);
+
+        /* Insert the new row
+        *  Returns the primary key value of the new row
+        */
+        long newRow = db.insert(LandmarkDbContract.MarkerInfoEntry.TABLE_NAME, null, values);
+
+        return (newRow != -1);
+    }
+
+    /**
+     * Facilitates entire marker info data retrieval.
      * @return A cursor containing the results statements.
      */
     public Cursor getAllData() {
