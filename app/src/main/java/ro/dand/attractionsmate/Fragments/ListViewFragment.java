@@ -84,7 +84,7 @@ public class ListViewFragment extends android.support.v4.app.ListFragment implem
                             cursor.getString(2),
                             new LatLng(cursor.getDouble(3), cursor.getDouble(4)),
                             cursor.getString(5),
-                            getResources().getIdentifier("no_preview", "drawable", "ro.dand.attractionsmate")
+                            getResources().getIdentifier(cursor.getString(6), "drawable", "ro.dand.attractionsmate")
                     )
             );
 //        cursor.getString(6);

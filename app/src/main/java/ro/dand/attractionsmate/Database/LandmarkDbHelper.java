@@ -42,19 +42,23 @@ public class LandmarkDbHelper extends SQLiteOpenHelper {
         db.execSQL(
                 "INSERT INTO " +
                 LandmarkDbContract.MarkerInfoEntry.TABLE_NAME +
-                " VALUES(null, \" TESTTITLE \", \"TESTSHORTDESCRIPTION\", 54.54, 44.44, \"LONGDESCRIPTION\", \"R.drawable.vacaresti\")");
-//        // Insert dummy data from repository
-//        for (MarkerInfo markerInfo : _markerInfoRepository.getAllMarkerInfo()) {
-//            db.execSQL(
-//                    "INSERT INTO " + LandmarkDbContract.MarkerInfoEntry.TABLE_NAME +
-//                    " VALUES (null, \"" + markerInfo.getMarkerTitle() +"\", \"" +
-//                    markerInfo.getMarkerShortDescription() + "\"," +
-//                    markerInfo.getCoordinates().latitude + ", " +
-//                    markerInfo.getCoordinates().longitude + ", \"" +
-//                    markerInfo.getMarkerLongDescription() + "\", " +
-//                    markerInfo.getMarkerImageAddress() + ")"
-//            );
-//        }
+                " VALUES(null, \" TESTTITLE \", \"TESTSHORTDESCRIPTION\", 54.54, 44.44, \"LONGDESCRIPTION\", \"vacaresti\")");
+
+
+        // Insert dummy data from repository
+        for (MarkerInfo markerInfo : _markerInfoRepository.getAllMarkerInfo()) {
+                db.execSQL(
+                        "INSERT INTO " +
+                                LandmarkDbContract.MarkerInfoEntry.TABLE_NAME +
+                                " VALUES(null, " +
+                                "\"" + markerInfo.getMarkerTitle() + "\", " +
+                                "\"" + markerInfo.getMarkerShortDescription() + "\", " +
+                                "" + markerInfo.getCoordinates().latitude +
+                                ", " + markerInfo.getCoordinates().longitude + ", " +
+                                "\"" + markerInfo.getMarkerLongDescription() + "\", " +
+                                "\"" + markerInfo.getMarkerImageName() + "\")");
+        }
+
     }
 
     @Override
