@@ -77,17 +77,17 @@ public class ListViewFragment extends android.support.v4.app.ListFragment implem
         }
 
         while (cursor.moveToNext()) {
-            cursor.getString(0);
+//            cursor.getString(0);
             updatedMarkerInfo.add(
                     new MarkerInfo(
                             cursor.getString(1),
                             cursor.getString(2),
                             new LatLng(cursor.getDouble(3), cursor.getDouble(4)),
                             cursor.getString(5),
-                            R.drawable.no_preview
+                            getResources().getIdentifier("no_preview", "drawable", "ro.dand.attractionsmate")
                     )
             );
-        cursor.getString(6);
+//        cursor.getString(6);
         }
         cursor.close();
     }

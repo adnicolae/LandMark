@@ -11,12 +11,12 @@ public class MarkerInfo {
     private String markerShortDescription;
     private LatLng coordinates;
     private String markerLongDescription;
-    private int markerImageAddress;
+    private String markerImageAddress;
 
     public MarkerInfo() {
     }
 
-    public MarkerInfo(String markerTitle, String markerShortDescription, LatLng coordinates, String markerLongDescription, int markerImageAddress) {
+    public MarkerInfo(String markerTitle, String markerShortDescription, LatLng coordinates, String markerLongDescription, String markerImageAddress) {
         this.markerTitle = markerTitle;
         this.markerShortDescription = markerShortDescription;
         this.coordinates = coordinates;
@@ -40,7 +40,7 @@ public class MarkerInfo {
         return markerLongDescription;
     }
 
-    public int getMarkerImageAddress() {
+    public String getMarkerImageAddress() {
         return markerImageAddress;
     }
 }
