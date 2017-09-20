@@ -1,14 +1,18 @@
 package ro.dand.attractionsmate.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -23,6 +27,7 @@ public class AddDataFragment extends Fragment {
     ArrayList<MarkerInfo> markerInfo = markerInfoRepository.getAllMarkerInfo();
     EditText locationTitle, locationShortDescription, locationLat, locationLng, locationLongDescription;
     Button insertBtn;
+    FloatingActionButton geocoderFAB;
 
     public AddDataFragment() {
         // Required empty public constructor
@@ -44,8 +49,10 @@ public class AddDataFragment extends Fragment {
         locationLat = (EditText) view.findViewById(R.id.locationLat);
         locationLng = (EditText) view.findViewById(R.id.locationLng);
         locationLongDescription = (EditText) view.findViewById(R.id.longDescription);
+        geocoderFAB = (FloatingActionButton) view.findViewById(R.id.geocoderFAB);
         insertBtn = (Button) view.findViewById(R.id.insertBtn);
         insertLocation();
+        openLinkOnFabClick();
 
         return view;
     }
@@ -71,6 +78,19 @@ public class AddDataFragment extends Fragment {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+    }
+
+    public void openLinkOnFabClick() {
+        geocoderFAB.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Uri uri = Uri.parse("https://google-developers.appspot.com/maps/documentation/utils/geocoder/"); // missing 'http://' will cause crashed
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+                    }
+                }
+        );
     }
 
 }
