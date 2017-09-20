@@ -72,6 +72,8 @@ public class AddDataFragment extends Fragment {
                                             locationLongDescription.getText().toString(),
                                             R.drawable.no_preview
                                     ));
+
+                            // toast here
                         }
                     }
             );
