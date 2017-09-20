@@ -74,11 +74,11 @@ public class LandmarkDbHelper extends SQLiteOpenHelper {
      * @param latitude  Location's latitude.
      * @param longitude Location's longitude.
      * @param longDescription A long description of the location.
-     * @param imageAddress  The image address, default: no_preview.
+     * @param imageName  The image address, default: no_preview.
      * @return true if a new database row has been created, false otherwise.
      */
     public boolean insertData(String markerTitle, String shortDescription, double latitude,
-                              double longitude, String longDescription, String imageAddress) {
+                              double longitude, String longDescription, String imageName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -87,7 +87,7 @@ public class LandmarkDbHelper extends SQLiteOpenHelper {
         values.put(LandmarkDbContract.MarkerInfoEntry.COL_LATITUDE, latitude);
         values.put(LandmarkDbContract.MarkerInfoEntry.COL_LONGITUDE, longitude);
         values.put(LandmarkDbContract.MarkerInfoEntry.COL_LONG_DESCRIPTION, longDescription);
-        values.put(LandmarkDbContract.MarkerInfoEntry.COL_IMAGE_ADDRESS, imageAddress);
+        values.put(LandmarkDbContract.MarkerInfoEntry.COL_IMAGE_ADDRESS, imageName);
 
         /* Insert the new row
         *  Returns the primary key value of the new row

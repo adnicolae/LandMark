@@ -13,12 +13,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
 import ro.dand.attractionsmate.Data.MarkerInfoRepository;
+import ro.dand.attractionsmate.Database.LandmarkDbHelper;
 import ro.dand.attractionsmate.Models.MarkerInfo;
 import ro.dand.attractionsmate.R;
 
@@ -28,6 +30,7 @@ public class AddDataFragment extends Fragment {
     EditText locationTitle, locationShortDescription, locationLat, locationLng, locationLongDescription;
     Button insertBtn;
     FloatingActionButton geocoderFAB;
+    LandmarkDbHelper mDbHelper;
 
     public AddDataFragment() {
         // Required empty public constructor
@@ -43,6 +46,8 @@ public class AddDataFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_data, container, false);
+
+        mDbHelper = new LandmarkDbHelper(getActivity());
 
         locationTitle = (EditText) view.findViewById(R.id.locationName);
         locationShortDescription = (EditText) view.findViewById(R.id.shortDescription);
@@ -64,14 +69,28 @@ public class AddDataFragment extends Fragment {
 
                         @Override
                         public void onClick(View v) {
-                            markerInfo.add(
-                                    new MarkerInfo(
-                                            locationTitle.getText().toString(),
-                                            locationShortDescription.getText().toString(),
-                                            new LatLng(Double.parseDouble(locationLat.getText().toString()), Double.parseDouble(locationLng.getText().toString())),
-                                            locationLongDescription.getText().toString(),
-                                            R.drawable.no_preview
-                                    ));
+                            boolean isInserted = mDbHelper.insertData(
+                                    locationTitle.getText().toString(),
+                                    locationShortDescription.getText().toString(),
+                                    Double.parseDouble(locationLat.getText().toString()),
+                                    Double.parseDouble(locationLng.getText().toString()),
+                                    locationLongDescription.getText().toString(),
+                                    "no_preview"
+                            );
+
+                            if (isInserted) {
+                                Toast.makeText(getActivity(), "Data inserted.", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getActivity(), "Data NOT inserted.", Toast.LENGTH_LONG).show();
+                            }
+//                            markerInfo.add(
+//                                    new MarkerInfo(
+//                                            locationTitle.getText().toString(),
+//                                            locationShortDescription.getText().toString(),
+//                                            new LatLng(Double.parseDouble(locationLat.getText().toString()), Double.parseDouble(locationLng.getText().toString())),
+//                                            locationLongDescription.getText().toString(),
+//                                            R.drawable.no_preview
+//                                    ));
 
                             // toast here
                         }

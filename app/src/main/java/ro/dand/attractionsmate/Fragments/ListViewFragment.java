@@ -77,7 +77,6 @@ public class ListViewFragment extends android.support.v4.app.ListFragment implem
         }
 
         while (cursor.moveToNext()) {
-//            cursor.getString(0);
             updatedMarkerInfo.add(
                     new MarkerInfo(
                             cursor.getString(1),
@@ -87,7 +86,6 @@ public class ListViewFragment extends android.support.v4.app.ListFragment implem
                             getResources().getIdentifier(cursor.getString(6), "drawable", "ro.dand.attractionsmate")
                     )
             );
-//        cursor.getString(6);
         }
         cursor.close();
     }
