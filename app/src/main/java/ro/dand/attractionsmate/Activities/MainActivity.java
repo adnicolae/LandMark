@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import ro.dand.attractionsmate.Fragments.AddDataFragment;
 import ro.dand.attractionsmate.Fragments.MapViewFragment;
 import ro.dand.attractionsmate.Fragments.ListViewFragment;
 import ro.dand.attractionsmate.R;
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     return new MapViewFragment();
                 case 2:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return new AddDataFragment();
             }
 
             return null;
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     return "MAP";
                 case 2:
-                    return "EXTRA";
+                    return "ADD";
             }
             return null;
         }
