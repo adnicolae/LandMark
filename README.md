@@ -10,7 +10,7 @@ Each suggestion contains a photo, directions and a description of the location.
 The goal is to use an online database such that every user can access other users's suggestions and feedback.
 
 ## Demo - local SQLite database with dummy data
-<p align="center"><img width=80% src="https://github.com/adnicolae/LandMark/blob/master/media/gif.gif"></p>
+<p align="center"><img width=80% src="https://github.com/adnicolae/LandMark/blob/master/media/gifSlow.gif"></p>
 <p align="center"><img width=80% src="https://adnicolae.github.io/images/Travel1.png"></p>
 <p align="center"><img width=80% src="https://adnicolae.github.io/images/Travel2.png"></p>
 
