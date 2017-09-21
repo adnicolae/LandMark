@@ -2,6 +2,7 @@ package ro.dand.attractionsmate.Fragments;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import ro.dand.attractionsmate.Data.MarkerInfoRepository;
+import ro.dand.attractionsmate.Database.LandmarkDbHelper;
 import ro.dand.attractionsmate.Models.MarkerInfo;
 import ro.dand.attractionsmate.R;
 import ro.dand.attractionsmate.Activities.ScrollingActivity;
@@ -45,6 +47,9 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
     public final static String EXTRA_MESSAGE = "";
     public final static String MARKER_TITLE = "";
 
+    LandmarkDbHelper mDbHelper;
+    ArrayList<MarkerInfo> mUpdatedMarkerInfo = new ArrayList<>();
+
     public final static HashMap<Marker, MarkerInfo> mMarkerInfoMap = new HashMap<>();
     public MarkerInfoRepository markerInfoRepository = null;
 
@@ -60,6 +65,8 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
 
         markerInfoRepository = new MarkerInfoRepository();
         final ArrayList<MarkerInfo> mMarkerInfo = markerInfoRepository.getAllMarkerInfo();
+        mDbHelper = new LandmarkDbHelper(getActivity());
+        retrieveDataFromDb();
 
 
         try {
@@ -80,7 +87,7 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
                 for (LatLng coordinate : markerInfoRepository.getAllMarkerPointsCoordinates()) {
                     Marker marker = googleMap.addMarker(new MarkerOptions()
                             .position(coordinate)
-                            .title(mMarkerInfo.get(i).getMarkerTitle())
+                            .title(mUpdatedMarkerInfo.get(i).getMarkerTitle())
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                             .snippet(mMarkerInfo.get(i).getMarkerShortDescription())
 
@@ -127,6 +134,28 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
             // Access to the location has been granted to the app.
             googleMap.setMyLocationEnabled(true);
         }
+    }
+
+    public void retrieveDataFromDb() {
+        Cursor cursor = mDbHelper.getAllData();
+
+        // Check if data is available
+        if (cursor.getCount() == 0) {
+            Toast.makeText(getActivity(), "No data available", Toast.LENGTH_SHORT).show();
+        }
+
+        while (cursor.moveToNext()) {
+            mUpdatedMarkerInfo.add(
+                    new MarkerInfo(
+                            cursor.getString(1),
+                            cursor.getString(2),
+                            new LatLng(cursor.getDouble(3), cursor.getDouble(4)),
+                            cursor.getString(5),
+                            getResources().getIdentifier(cursor.getString(6), "drawable", "ro.dand.attractionsmate")
+                    )
+            );
+        }
+        cursor.close();
     }
 
 

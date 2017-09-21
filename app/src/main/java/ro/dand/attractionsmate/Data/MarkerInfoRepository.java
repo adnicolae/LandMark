@@ -1,10 +1,14 @@
 package ro.dand.attractionsmate.Data;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import ro.dand.attractionsmate.Database.LandmarkDbHelper;
 import ro.dand.attractionsmate.Models.MarkerInfo;
 
 import ro.dand.attractionsmate.R;
@@ -14,7 +18,6 @@ import ro.dand.attractionsmate.R;
  */
 
 public class MarkerInfoRepository {
-
     private final static ArrayList<MarkerInfo> mMarkerInfo =
             new ArrayList<>(Arrays.asList(
                     new MarkerInfo("Palace of the Parliament", "Palace and architecture", new LatLng(44.427504, 26.087351), "The world’s second largest administrative building is The Palace of the " +
@@ -50,6 +53,7 @@ public class MarkerInfoRepository {
 
     public MarkerInfoRepository() {
     }
+
 
     public ArrayList<MarkerInfo> getAllMarkerInfo() {
         return mMarkerInfo;

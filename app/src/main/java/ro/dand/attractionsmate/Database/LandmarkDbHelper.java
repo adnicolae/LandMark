@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.Serializable;
+
 import ro.dand.attractionsmate.Data.MarkerInfoRepository;
 import ro.dand.attractionsmate.Models.MarkerInfo;
 
@@ -21,12 +23,12 @@ public class LandmarkDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + LandmarkDbContract.MarkerInfoEntry.TABLE_NAME + " (" +
             LandmarkDbContract.MarkerInfoEntry._ID + " INTEGER PRIMARY KEY," +
-            LandmarkDbContract.MarkerInfoEntry.COL_TITLE + " VARCHAR2(30)," +
-            LandmarkDbContract.MarkerInfoEntry.COL_SHORT_DESCRIPTION + " VARCHAR2(30)," +
-            LandmarkDbContract.MarkerInfoEntry.COL_LATITUDE + " DOUBLE," +
-            LandmarkDbContract.MarkerInfoEntry.COL_LONGITUDE + " DOUBLE," +
-            LandmarkDbContract.MarkerInfoEntry.COL_LONG_DESCRIPTION + " TEXT," +
-            LandmarkDbContract.MarkerInfoEntry.COL_IMAGE_ADDRESS + " VARCHAR2(30))";
+            LandmarkDbContract.MarkerInfoEntry.COL_TITLE + " VARCHAR2(30) NOT NULL," +
+            LandmarkDbContract.MarkerInfoEntry.COL_SHORT_DESCRIPTION + " VARCHAR2(30) NOT NULL," +
+            LandmarkDbContract.MarkerInfoEntry.COL_LATITUDE + " DOUBLE NOT NULL," +
+            LandmarkDbContract.MarkerInfoEntry.COL_LONGITUDE + " DOUBLE NOT NULL," +
+            LandmarkDbContract.MarkerInfoEntry.COL_LONG_DESCRIPTION + " TEXT NOT NULL," +
+            LandmarkDbContract.MarkerInfoEntry.COL_IMAGE_ADDRESS + " VARCHAR2(30) NOT NULL)";
 
     private static final String SQL_DELETE_ENTRIES =
             "DELETE TABLE IF EXISTS " + LandmarkDbContract.MarkerInfoEntry.TABLE_NAME;
@@ -39,11 +41,6 @@ public class LandmarkDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
-        db.execSQL(
-                "INSERT INTO " +
-                LandmarkDbContract.MarkerInfoEntry.TABLE_NAME +
-                " VALUES(null, \" TESTTITLE \", \"TESTSHORTDESCRIPTION\", 54.54, 44.44, \"LONGDESCRIPTION\", \"vacaresti\")");
-
 
         // Insert dummy data from repository
         for (MarkerInfo markerInfo : _markerInfoRepository.getAllMarkerInfo()) {
@@ -58,7 +55,6 @@ public class LandmarkDbHelper extends SQLiteOpenHelper {
                                 "\"" + markerInfo.getMarkerLongDescription() + "\", " +
                                 "\"" + markerInfo.getMarkerImageName() + "\")");
         }
-
     }
 
     @Override

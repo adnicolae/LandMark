@@ -47,8 +47,6 @@ public class AddDataFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_data, container, false);
 
-        mDbHelper = new LandmarkDbHelper(getActivity());
-
         locationTitle = (EditText) view.findViewById(R.id.locationName);
         locationShortDescription = (EditText) view.findViewById(R.id.shortDescription);
         locationLat = (EditText) view.findViewById(R.id.locationLat);
@@ -56,6 +54,8 @@ public class AddDataFragment extends Fragment {
         locationLongDescription = (EditText) view.findViewById(R.id.longDescription);
         geocoderFAB = (FloatingActionButton) view.findViewById(R.id.geocoderFAB);
         insertBtn = (Button) view.findViewById(R.id.insertBtn);
+
+        mDbHelper = new LandmarkDbHelper(getContext());
         insertLocation();
         openLinkOnFabClick();
 
@@ -83,16 +83,6 @@ public class AddDataFragment extends Fragment {
                             } else {
                                 Toast.makeText(getActivity(), "Data NOT inserted.", Toast.LENGTH_LONG).show();
                             }
-//                            markerInfo.add(
-//                                    new MarkerInfo(
-//                                            locationTitle.getText().toString(),
-//                                            locationShortDescription.getText().toString(),
-//                                            new LatLng(Double.parseDouble(locationLat.getText().toString()), Double.parseDouble(locationLng.getText().toString())),
-//                                            locationLongDescription.getText().toString(),
-//                                            R.drawable.no_preview
-//                                    ));
-
-                            // toast here
                         }
                     }
             );

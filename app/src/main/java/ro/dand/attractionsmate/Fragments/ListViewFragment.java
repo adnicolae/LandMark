@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import ro.dand.attractionsmate.Data.MarkerInfoRepository;
 import ro.dand.attractionsmate.Database.LandmarkDbContract;
@@ -38,11 +40,15 @@ public class ListViewFragment extends android.support.v4.app.ListFragment implem
     ArrayList<MarkerInfo> updatedMarkerInfo = new ArrayList<>();
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mDbHelper = new LandmarkDbHelper(getContext());
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_fragment, container, false);
-        mDbHelper = new LandmarkDbHelper(getActivity());
         retrieveDataFromDb();
-
         return view;
     }
 
@@ -67,13 +73,17 @@ public class ListViewFragment extends android.support.v4.app.ListFragment implem
         intent.putExtras(extras);
         startActivity(intent);
     }
-    // NOTE: issue parsing/storing R.drawable both as string and int
+
     public void retrieveDataFromDb() {
         Cursor cursor = mDbHelper.getAllData();
 
         // Check if data is available
         if (cursor.getCount() == 0) {
             Toast.makeText(getActivity(), "No data available", Toast.LENGTH_SHORT).show();
+        }
+
+        if (updatedMarkerInfo.size() > 0) {
+            cursor.moveToPosition(updatedMarkerInfo.size() - 1);
         }
 
         while (cursor.moveToNext()) {
@@ -88,5 +98,9 @@ public class ListViewFragment extends android.support.v4.app.ListFragment implem
             );
         }
         cursor.close();
+    }
+
+    public ArrayList<MarkerInfo> getUpdatedMarkerInfo() {
+        return updatedMarkerInfo;
     }
 }
