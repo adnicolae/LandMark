@@ -102,4 +102,18 @@ public class LandmarkDbHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT * FROM " + LandmarkDbContract.MarkerInfoEntry.TABLE_NAME, null);
         return cursor;
     }
+
+    /**
+     * Facilitates coordinates retrieval.
+     * @return A cursor containing the results statements.
+     */
+    public Cursor getCoordinates() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT " +
+                LandmarkDbContract.MarkerInfoEntry.COL_LATITUDE + "," +
+                LandmarkDbContract.MarkerInfoEntry.COL_LONGITUDE +
+                " FROM " + LandmarkDbContract.MarkerInfoEntry.TABLE_NAME, null);
+        return cursor;
+    }
 }

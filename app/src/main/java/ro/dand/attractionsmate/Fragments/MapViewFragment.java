@@ -43,15 +43,12 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
     private GoogleMap googleMap;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
-    protected LocationManager locationManager;
-    public final static String EXTRA_MESSAGE = "";
-    public final static String MARKER_TITLE = "";
-
     LandmarkDbHelper mDbHelper;
-    ArrayList<MarkerInfo> mUpdatedMarkerInfo = new ArrayList<>();
+    ArrayList<MarkerInfo> updatedMarkerInfo = new ArrayList<>();
+    ArrayList<LatLng> allCoordinates = new ArrayList<>();
 
-    public final static HashMap<Marker, MarkerInfo> mMarkerInfoMap = new HashMap<>();
-    public MarkerInfoRepository markerInfoRepository = null;
+    private final static HashMap<Marker, MarkerInfo> mMarkerInfoMap = new HashMap<>();
+    private MarkerInfoRepository markerInfoRepository = null;
 
 
     @Override
@@ -67,6 +64,7 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
         final ArrayList<MarkerInfo> mMarkerInfo = markerInfoRepository.getAllMarkerInfo();
         mDbHelper = new LandmarkDbHelper(getActivity());
         retrieveDataFromDb();
+        retrieveCoordinates();
 
 
         try {
@@ -84,17 +82,17 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
                 enableMyLocation();
 
                 int i = 0;
-                for (LatLng coordinate : markerInfoRepository.getAllMarkerPointsCoordinates()) {
+                for (LatLng coordinate : allCoordinates) {
                     Marker marker = googleMap.addMarker(new MarkerOptions()
                             .position(coordinate)
-                            .title(mUpdatedMarkerInfo.get(i).getMarkerTitle())
+                            .title(updatedMarkerInfo.get(i).getMarkerTitle())
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                            .snippet(mMarkerInfo.get(i).getMarkerShortDescription())
+                            .snippet(updatedMarkerInfo.get(i).getMarkerShortDescription())
 
                     );
                     googleMap.setOnInfoWindowClickListener(MapViewFragment.this);
 
-                    mMarkerInfoMap.put(marker, mMarkerInfo.get(i));
+                    mMarkerInfoMap.put(marker, updatedMarkerInfo.get(i));
                     i++;
                 }
 
@@ -144,8 +142,12 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
             Toast.makeText(getActivity(), "No data available", Toast.LENGTH_SHORT).show();
         }
 
+        if (updatedMarkerInfo.size() > 0) {
+            cursor.moveToPosition(updatedMarkerInfo.size() - 1);
+        }
+
         while (cursor.moveToNext()) {
-            mUpdatedMarkerInfo.add(
+            updatedMarkerInfo.add(
                     new MarkerInfo(
                             cursor.getString(1),
                             cursor.getString(2),
@@ -157,6 +159,27 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnInfoWindowC
         }
         cursor.close();
     }
+
+    public void retrieveCoordinates() {
+        Cursor cursor = mDbHelper.getAllData();
+
+        // Check if data is available
+        if (cursor.getCount() == 0) {
+            Toast.makeText(getActivity(), "No data available", Toast.LENGTH_SHORT).show();
+        }
+
+        if (allCoordinates.size() > 0) {
+            cursor.moveToPosition(allCoordinates.size() - 1);
+        }
+
+        while (cursor.moveToNext()) {
+            allCoordinates.add(
+                    new LatLng(cursor.getDouble(3), cursor.getDouble(4))
+            );
+        }
+        cursor.close();
+    }
+
 
 
     @Override
