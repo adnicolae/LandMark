@@ -31,3 +31,8 @@ Map must be refreshed after:
   <li>Sort the list such that the nearest locations are at the top</li>
   <li>Refactor Repository & general</li>
 </ul>
+
+---
+> [adnicolae.github.io](https://adnicolae.github.io/) &nbsp;&middot;&nbsp;
+> GitHub [@adnicolae](https://github.com/adnicolae) &nbsp;&middot;&nbsp;
+> LinkedIn [@andreinicolae](https://www.linkedin.com/in/andreinicolae/)
